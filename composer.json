@@ -1,0 +1,38 @@
+{
+    "name": "nitsan/ns-hubspot",
+    "type": "typo3-cms-extension",
+    "description": "Easily install and configure your typo3 form with HubSpot",
+    "homepage": "https://extensions.typo3.org/extension/ns_hubspot/",
+    "license": "GPL-2.0+",
+    "keywords": [
+        "TYPO3 CMS",
+        "HubSpot",
+        "Nitsan",
+        "Form"
+    ],
+    "support": {
+        "issues": "https://github.com/nitsan-technologies/ns_hubspot/issues"
+    },
+    "require": {
+        "typo3/cms-core": "^11 || ^12"
+    },
+    "replace": {
+        "typo3-ter/ns-hubspot": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nitsan\\NsHubSpot\\": "Classes"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public",
+            "extension-key": "ns_hubspot"
+        }
+    }
+}

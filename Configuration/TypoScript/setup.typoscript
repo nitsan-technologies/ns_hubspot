@@ -1,0 +1,10 @@
+# Includes EXT:Form Configuration
+@import 'EXT:ns_hubspot/Configuration/TypoScript/Extensions/Form/*.typoscript'
+
+plugin.tx_nshubspot {
+    settings {
+        apiURL = {$plugin.tx_nshubspot.settings.apiURL}
+        client_apikey = {$plugin.tx_nshubspot.settings.client_apikey}
+        client_id = {$plugin.tx_nshubspot.settings.client_id}
+    }
+}

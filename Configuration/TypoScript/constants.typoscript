@@ -1,0 +1,11 @@
+plugin.tx_nshubspot {
+  settings {
+    # cat=plugin.tx_nshubspot/100/1; type=string; label=LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:settings.api_url
+    apiURL = https://api.hsforms.com
+    # cat=plugin.tx_nshubspot/100/2; type=string; label=LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:settings.client_apikey
+    client_apikey =
+    # cat=plugin.tx_nshubspot/100/3; type=string; label=LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:settings.client_id
+    client_id =
+  }
+
+}

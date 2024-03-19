@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-08-03T12:31:30Z" product-name="ns_hubspot">
+		<header/>
+		<body>
+			<trans-unit id="settings.api_url" xml:space="preserve">
+				<source>API URL:i.e. https://api.hubapi.com</source>
+			</trans-unit>
+			<trans-unit id="settings.client_apikey" xml:space="preserve">
+				<source>Client API Key</source>
+			</trans-unit>
+			<trans-unit id="settings.client_id" xml:space="preserve">
+				<source>Client ID</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

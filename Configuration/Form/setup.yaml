@@ -1,0 +1,205 @@
+TYPO3:
+  CMS:
+    Form:
+      persistenceManager:
+        allowedExtensionPaths:
+          110: EXT:ns_basetheme/Resources/Private/Forms/
+        allowSaveToExtensionPaths: true
+        allowDeleteFromExtensionPaths: true
+      prototypes:
+        standard:
+          finishersDefinition:
+            formEditor:
+              iconIdentifier: form-finisher
+              label: HubSpot Finisher
+              predefinedDefaults:
+                options: []
+            HubSpotFinisher:
+              implementationClassName: 'Nitsan\NsHubSpot\Finishers\ApiFinisher'
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  500:
+                    identifier: hubspotEnable
+                    templateName: Inspector-CheckboxEditor
+                    label: Enable HubSpot
+                    propertyPath: renderingOptions.hubspotEnable
+                  510:
+                    identifier: hubspotPortalId
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Portal ID
+                    propertyPath: renderingOptions.hubspotPortalId
+                  520:
+                    identifier: hubspotFormId
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Form Id
+                    propertyPath: renderingOptions.hubspotFormId
+                  900:
+                    selectOptions:
+                      1560425499:
+                        value: 'HubSpotFinisher'
+                        label: 'HubSpot Finisher'
+                propertyCollections:
+                  finishers:
+                    1560425499:
+                      identifier: 'HubSpotFinisher'
+                      editors:
+                        100:
+                          identifier: header
+                          templateName: Inspector-CollectionElementHeaderEditor
+                          label: HubSpot Finisher
+                        9999:
+                          identifier: removeButton
+                          templateName: Inspector-RemoveElementEditor        
+              renderingOptions:
+                translation:
+                  translationFile:
+                    110: 'EXT:ns_hubspot/Resources/Private/Language/locallang.xlf'
+            Text:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Textarea:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Email:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+                
+            Number:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Telephone:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Hidden:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Url:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+            Checkbox:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                containerClassAttribute: 'custom-control custom-checkbox'
+                elementClassAttribute: 'custom-control-input'
+            GridRow:
+              properties:
+                elementClassAttribute: 'form-row row'
+            MultiCheckbox:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                containerClassAttribute: 'custom-checkbox-multiple'
+                elementClassAttribute: 'custom-control-input'
+            MultiSelect:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                elementClassAttribute: 'custom-select form-control'
+            RadioButton:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                containerClassAttribute: 'custom-radio-multiple'
+                elementClassAttribute: 'custom-control-input'
+            SingleSelect:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                elementClassAttribute: 'custom-select'
+            FileUpload:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                elementClassAttribute: 'custom-file-input'
+            ImageUpload:
+              formEditor:
+                editors:
+                  600:
+                    identifier: hubSpotValue
+                    templateName: Inspector-TextEditor
+                    label: HubSpot Value
+                    propertyPath: renderingOptions.hubSpotValue
+              properties:
+                elementClassAttribute: 'custom-file-input'
+                imageLinkMaxWidth: 1200
+                imageMaxWidth: 200
+                imageMaxHeight: 200
+            DatePicker:
+              properties:
+                elementClassAttribute: 'form-control'
+                timeSelectorClassAttribute: 'custom-select form-control'
+
+      mixins:
+        formElementMixins:
+          FormElementMixin:
+            properties:
+              elementErrorClassAttribute: 'is-invalid'
+  
