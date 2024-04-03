@@ -1,12 +1,14 @@
 <?php
 
 $EM_CONF['ns_hubspot'] = [
-    'title' => '[NITSAN] HubSpot TYPO3 Extension',
-    'description' => 'Easily install and configure your TYPO3 form with HubSpot CRM. Demo: https://demo.t3planet.com/t3-extensions/typo3-hubspot-crm You can download PRO version for more-features & free-support at https://t3planet.com/typo3-hubspot-extension',
+    'title' => 'HubSpot',
+    'description' => 'HubSpot Extension for TYPO3 forms easily connects with HubSpot CRM. This TYPO3 add-on for your forms ensures you capture all leads from your TYPO3 websites. Take advantage of your leads! Our integration of TYPO3 forms and HubSpot CRM offers a strong combination that will change the way you collect, nurture, and convert leads. 
+    
+    *** Live Demo: https://demo.t3planet.com/t3-extensions/typo3-hubspot *** Documentation & Free Support: https://t3planet.com/typo3-hubspot-extension',
     'category' => 'plugin',
-    'author' => 'T3D: Pradeepsinh Masani, Nilesh Malankiya',
+    'author' => 'T3: Nilesh Malankiya, T3: Pradeepsinh Masani, QA: Krishna Dhapa',
     'author_email' => 'sanjay@nitsan.in',
-    'author_company' => 'NITSAN Technologies Pvt Ltd',
+    'author_company' => 'T3Planet // NITSAN',
     'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
