@@ -4,5 +4,4 @@
 
 - Free version: https://extensions.typo3.org/extension/ns_hubspot
 - Premium version:https://t3planet.de/en/typo3-hubspot-extension
-- Live Frontend Demo: https://t3-extension.t3planet.com/pro/typo3-hubspot
 - Documentation: https://docs.t3planet.com/en/latest/ExtNsHubspot/Index.html

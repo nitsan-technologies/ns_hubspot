@@ -9,13 +9,13 @@ TYPO3:
       prototypes:
         standard:
           finishersDefinition:
-            formEditor:
-              iconIdentifier: form-finisher
-              label: HubSpot Finisher
-              predefinedDefaults:
-                options: []
             HubSpotFinisher:
               implementationClassName: 'Nitsan\NsHubSpot\Finishers\ApiFinisher'
+              formEditor:
+                iconIdentifier: form-finisher
+                label: HubSpot Finisher
+                predefinedDefaults:
+                  options: []
           formElementsDefinition:
             Form:
               formEditor:
@@ -40,10 +40,11 @@ TYPO3:
                       1560425499:
                         value: 'HubSpotFinisher'
                         label: 'HubSpot Finisher'
+                
                 propertyCollections:
                   finishers:
                     1560425499:
-                      identifier: 'HubSpotFinisher'
+                      identifier: HubSpotFinisher
                       editors:
                         100:
                           identifier: header
@@ -51,11 +52,7 @@ TYPO3:
                           label: HubSpot Finisher
                         9999:
                           identifier: removeButton
-                          templateName: Inspector-RemoveElementEditor        
-              renderingOptions:
-                translation:
-                  translationFile:
-                    110: 'EXT:ns_hubspot/Resources/Private/Language/locallang.xlf'
+                          templateName: Inspector-RemoveElementEditor
             Text:
               formEditor:
                 editors:

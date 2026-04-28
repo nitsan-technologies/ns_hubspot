@@ -1,0 +1,22 @@
+categories:
+  ns_hubspot:
+    label: HubSpot Configuration
+
+settings:
+  nshubspot.apiURL:
+    label: 'API URL'
+    category: ns_hubspot
+    type: string
+    default: 'https://api.hsforms.com'
+
+  nshubspot.client_apikey:
+    label: 'Client API Key'
+    category: ns_hubspot
+    type: string
+    default: ''
+
+  nshubspot.client_id:
+    label: 'Client ID'
+    category: ns_hubspot
+    type: string
+    default: ''
