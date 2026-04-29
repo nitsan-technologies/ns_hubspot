@@ -73,31 +73,21 @@ class ApiFinisher extends AbstractFinisher
         $changeFormat = [];
 
         if($enableHubSpot == 'TRUE'){
-
             // get configuration from extension manager
-            // $constant = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_nshubspot.']['settings.'];
             $constant = [];
-
             // 1. Get TypoScript safely
-            $tsSettings = GeneralUtility::makeInstance(ConfigurationManager::class)
-                ->getConfiguration(
-                    ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
-                    'NsHubspot'
-                );
-            // Extract actual settings
-                $settings = $tsSettings['settings'] ?? [];
+            $tsSettings = GeneralUtility::makeInstance(ConfigurationManager::class)->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,'NsHubspot');
+            $settings = $tsSettings['settings'] ?? [];
 
-                if (!empty($settings['hubspot'])) {
-                    
-                    $constant = $settings['hubspot'];
-                } else {
-                    
-                    $site = $GLOBALS['TYPO3_REQUEST']->getAttribute('site');
-                    if ($site) {
-                        $siteSettings = $site->getSettings();
-                        $constant = $siteSettings->get('nshubspot', []);
-                    }
+            if(!empty($settings['hubspot'])){
+                $constant = $settings['hubspot'];
+            }else{
+                $site = $GLOBALS['TYPO3_REQUEST']->getAttribute('site');
+                if ($site) {
+                    $siteSettings = $site->getSettings();
+                    $constant = $siteSettings->get('nshubspot', []);
                 }
+            }
                 
             $availablefileds = $formRuntime->getFormState()->getFormValues();
             $resultExtensProperties = [];
@@ -107,32 +97,25 @@ class ApiFinisher extends AbstractFinisher
                     foreach($element->getRenderingOptions() as $key => $newProperties){
 
                         if($key == 'hubSpotValue'){
-                            
                             if(is_string($newProperties)){
                                 $resultExtensProperties[] = $newProperties;
                             }
-
                             if (!$element instanceof FileUpload) {
                                 continue;
                             }
                             $file = $formRuntime[$element->getIdentifier()];
-
                             if (!$file) {
                                 continue;
                             }
-
                             if ($file instanceof FileReference) {
                                 $file = $file->getOriginalResource();
                             }
-
                             $folder = $file->getParentFolder();
                             $folderName = $folder->getName();
                             $fileName = $file->getName();
-
                         }
                     }
                     foreach($availablefileds as $key => $values){
-
                         if($key == $element->getIdentifier()){
                             if(is_array($values)){
                                 $values = implode(', ', $values);
@@ -142,36 +125,22 @@ class ApiFinisher extends AbstractFinisher
                     }
                 }
             }
-            
             $finalResult = [];
-
-            // safer replacement of array_combine
             $values = array_values($matchingFormValues);
             foreach ($resultExtensProperties as $index => $key) {
                 $finalResult[$key] = $values[$index] ?? '';
             }
-            
-
             if (!empty($fileName) && !empty($folderName)) {
-
                 try {
-                    $resourceFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
-
-                    // safer FAL identifier
+                    $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
                     $fileIdentifier = '1:/user_upload/' . $folderName . '/' . $fileName;
-
                     $fileObject = $resourceFactory->getFileObjectFromCombinedIdentifier($fileIdentifier);
-
                     $accessibleUrl = $fileObject->getPublicUrl();
-
                     $finalResult['file_upload'] = $accessibleUrl;
-
                 } catch (\Exception $e) {
-                    // silently ignore missing file
                     $finalResult['file_upload'] = '';
                 }
             }
-            
             foreach ($finalResult as $key => $value){
                 if(!empty($value)){
                     $changeFormat[] = [
@@ -184,20 +153,17 @@ class ApiFinisher extends AbstractFinisher
             // HubSpot API Key
             $apiKey = $constant['apiURL'] ?? '';
             $clientAPIKey = $constant['client_apikey'] ?? '';
-            
             // Guzzle HTTP client
             $client = new Client([
                 'base_uri' => $apiKey,
                 'timeout'  => 2.0,
             ]);
-
             $apiURL = $apiKey . '/submissions/v3/integration/submit/' . $hubspotPortalId . '/' . $hubspotFormId;
             // Submit form data
             $client->request('POST', $apiURL, [
                 'query' => ['hapikey' => $clientAPIKey],
                 'json' => $data
             ]);
-
         }
     }
 }
