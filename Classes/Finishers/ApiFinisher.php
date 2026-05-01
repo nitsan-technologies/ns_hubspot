@@ -88,7 +88,10 @@ class ApiFinisher extends AbstractFinisher
                     $constant = $siteSettings->get('nshubspot', []);
                 }
             }
-                
+            if (empty($constant)) {
+                $fullSetup = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')?->getSetupArray();
+                $constant = $fullSetup['plugin.']['tx_nshubspot.']['settings.'] ?? [];
+            }
             $availablefileds = $formRuntime->getFormState()->getFormValues();
             $resultExtensProperties = [];
 

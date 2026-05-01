@@ -1,7 +1,7 @@
 {
     "name": "nitsan/ns-hubspot",
     "type": "typo3-cms-extension",
-    "description": "TYPO3 HubSpot Integration - Seamlessly connect your TYPO3 forms with HubSpot CRM to capture, manage, and convert leads efficiently. Improve your marketing automation and sales pipeline with direct integration.",
+    "description": "TYPO3 HubSpot Integratio - Seamlessly connect your TYPO3 forms with HubSpot CRM to capture, manage, and convert leads efficiently. Improve your marketing automation and sales pipeline with direct integration.",
     "homepage": "https://extensions.typo3.org/extension/ns_hubspot/",
     "license": "GPL-2.0+",
     "keywords": [
