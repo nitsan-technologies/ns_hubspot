@@ -159,7 +159,7 @@ class ApiFinisher extends AbstractFinisher
             // Guzzle HTTP client
             $client = new Client([
                 'base_uri' => $apiKey,
-                'timeout'  => 2.0,
+                'timeout'  => 10.0,
             ]);
             $apiURL = $apiKey . '/submissions/v3/integration/submit/' . $hubspotPortalId . '/' . $hubspotFormId;
             // Submit form data
