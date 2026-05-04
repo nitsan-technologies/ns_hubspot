@@ -15,6 +15,8 @@ $EM_CONF['ns_hubspot'] = [
     'constraints' => [
         'depends' => [
             'typo3' => '13.0.0-14.9.99',
+            'fluid' => '',
+            'extbase' => '',
         ],
         'conflicts' => [],
         'suggests' => [],

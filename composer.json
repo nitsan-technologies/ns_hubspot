@@ -14,7 +14,11 @@
         "issues": "https://github.com/nitsan-technologies/ns_hubspot/issues"
     },
     "require": {
-        "typo3/cms-core": "^13 || ^14"
+        "typo3/cms-core": "^13 || ^14",
+        "typo3/cms-extbase": "^13.4.20 || ^14.0",
+        "typo3/cms-fluid": "^13.4.20 || ^14.0",
+        "typo3/cms-frontend": "^13.4.20 || ^14.0",
+        "typo3/cms-install": "^13.4.20 || ^14.0"
     },
     "replace": {
         "typo3-ter/ns-hubspot": "self.version"
