@@ -23,38 +23,15 @@ use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 
 /**
- * This finisher sends an email to one recipient
- *
- * Options:
- *
- * - templateName (mandatory): Template name for the mail body
- * - templateRootPaths: root paths for the templates
- * - layoutRootPaths: root paths for the layouts
- * - partialRootPaths: root paths for the partials
- * - variables: associative array of variables which are available inside the Fluid template
- *
- * The following options control the mail sending. In all of them, placeholders in the form
- * of {...} are replaced with the corresponding form value; i.e. {email} as senderAddress
- * makes the recipient address configurable.
- *
- * - subject (mandatory): Subject of the email
- * - recipients (mandatory): Email addresses and human-readable names of the recipients
- * - senderAddress (mandatory): Email address of the sender
- * - senderName: Human-readable name of the sender
- * - replyToRecipients: Email addresses and human-readable names of the reply-to recipients
- * - carbonCopyRecipients: Email addresses and human-readable names of the copy recipients
- * - blindCarbonCopyRecipients: Email addresses and human-readable names of the blind copy recipients
- * - title: The title of the email - If not set "subject" is used by default
+ * This finisher sends form data to HubSpot.
  *
  * Scope: frontend
  */
 class ApiFinisher extends AbstractFinisher
 {
-
     /**
      * Executes this finisher
      * @see AbstractFinisher::execute()
@@ -65,108 +42,156 @@ class ApiFinisher extends AbstractFinisher
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
         $renderingOptions = $formRuntime->getFormDefinition()->getRenderingOptions();
-        $enableHubSpot = $renderingOptions['hubspotEnable'];
-        $hubspotPortalId = $renderingOptions['hubspotPortalId'];
-        $hubspotFormId = $renderingOptions['hubspotFormId'];
-        $matchingFormValues = [];
-        $folderName = '';
-        $changeFormat = [];
+        $enableHubSpot = $renderingOptions['hubspotEnable'] ?? false;
+        $hubspotPortalId = (string)($renderingOptions['hubspotPortalId'] ?? '');
+        $hubspotFormId = (string)($renderingOptions['hubspotFormId'] ?? '');
 
-        if($enableHubSpot == 'TRUE'){
-            // get configuration from extension manager
-            $constant = [];
-            // 1. Get TypoScript safely
-            $tsSettings = GeneralUtility::makeInstance(ConfigurationManager::class)->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,'NsHubspot');
-            $settings = $tsSettings['settings'] ?? [];
-
-            if(!empty($settings['hubspot'])){
-                $constant = $settings['hubspot'];
-            }else{
-                $site = $GLOBALS['TYPO3_REQUEST']->getAttribute('site');
-                if ($site) {
-                    $siteSettings = $site->getSettings();
-                    $constant = $siteSettings->get('nshubspot', []);
-                }
-            }
-            if (empty($constant)) {
-                $fullSetup = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')?->getSetupArray();
-                $constant = $fullSetup['plugin.']['tx_nshubspot.']['settings.'] ?? [];
-            }
-            $availablefileds = $formRuntime->getFormState()->getFormValues();
-            $resultExtensProperties = [];
-
-            foreach ($formRuntime->getFormDefinition()->getRenderablesRecursively() as $element) {
-                if($element->getType() != 'Page' && $element->getType() != 'GridRow' && $element->getType() != 'Fieldset' && $element->getType() != 'Checkbox' && $element->getType() != 'StaticText' && $element->getType() != 'Recaptcha' && $element->getType() != 'Honeypot'){
-                    foreach($element->getRenderingOptions() as $key => $newProperties){
-
-                        if($key == 'hubSpotValue'){
-                            if(is_string($newProperties)){
-                                $resultExtensProperties[] = $newProperties;
-                            }
-                            if (!$element instanceof FileUpload) {
-                                continue;
-                            }
-                            $file = $formRuntime[$element->getIdentifier()];
-                            if (!$file) {
-                                continue;
-                            }
-                            if ($file instanceof FileReference) {
-                                $file = $file->getOriginalResource();
-                            }
-                            $folder = $file->getParentFolder();
-                            $folderName = $folder->getName();
-                            $fileName = $file->getName();
-                        }
-                    }
-                    foreach($availablefileds as $key => $values){
-                        if($key == $element->getIdentifier()){
-                            if(is_array($values)){
-                                $values = implode(', ', $values);
-                            }
-                            $matchingFormValues[$key] = $values;
-                        }
-                    }
-                }
-            }
-            $finalResult = [];
-            $values = array_values($matchingFormValues);
-            foreach ($resultExtensProperties as $index => $key) {
-                $finalResult[$key] = $values[$index] ?? '';
-            }
-            if (!empty($fileName) && !empty($folderName)) {
-                try {
-                    $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-                    $fileIdentifier = '1:/user_upload/' . $folderName . '/' . $fileName;
-                    $fileObject = $resourceFactory->getFileObjectFromCombinedIdentifier($fileIdentifier);
-                    $accessibleUrl = $fileObject->getPublicUrl();
-                    $finalResult['file_upload'] = $accessibleUrl;
-                } catch (\Exception $e) {
-                    $finalResult['file_upload'] = '';
-                }
-            }
-            foreach ($finalResult as $key => $value){
-                if(!empty($value)){
-                    $changeFormat[] = [
-                        'name' => $key,
-                        'value' => $value
-                    ];
-                }
-            }
-            $data['fields'] = $changeFormat;
-            // HubSpot API Key
-            $apiKey = $constant['apiURL'] ?? '';
-            $clientAPIKey = $constant['client_apikey'] ?? '';
-            // Guzzle HTTP client
-            $client = new Client([
-                'base_uri' => $apiKey,
-                'timeout'  => 10.0,
-            ]);
-            $apiURL = $apiKey . '/submissions/v3/integration/submit/' . $hubspotPortalId . '/' . $hubspotFormId;
-            // Submit form data
-            $client->request('POST', $apiURL, [
-                'query' => ['hapikey' => $clientAPIKey],
-                'json' => $data
-            ]);
+        if (!$this->isHubSpotEnabled($enableHubSpot)) {
+            return;
         }
+
+        $constant = $this->resolveHubSpotConfiguration();
+        $clientAPIKey = trim((string)($constant['client_apikey'] ?? ''));
+        $apiBaseUrl = rtrim((string)($constant['apiURL'] ?? 'https://api.hsforms.com'), '/');
+
+        if ($clientAPIKey === '' || $hubspotPortalId === '' || $hubspotFormId === '') {
+            return;
+        }
+
+        $availableFields = $formRuntime->getFormState()->getFormValues();
+        $finalResult = [];
+        $folderName = '';
+        $fileName = '';
+
+        foreach ($formRuntime->getFormDefinition()->getRenderablesRecursively() as $element) {
+            if (in_array($element->getType(), ['Page', 'GridRow', 'Fieldset', 'Checkbox', 'StaticText', 'Recaptcha', 'Honeypot'], true)) {
+                continue;
+            }
+
+            $identifier = $element->getIdentifier();
+            $hubSpotValue = $element->getRenderingOptions()['hubSpotValue'] ?? $element->getProperties()['hubSpotValue'] ?? null;
+
+            if (is_string($hubSpotValue) && $hubSpotValue !== '' && array_key_exists($identifier, $availableFields)) {
+                $value = $availableFields[$identifier];
+                if (is_array($value)) {
+                    $value = implode(', ', $value);
+                }
+                if ($value !== null && $value !== '') {
+                    $finalResult[trim($hubSpotValue)] = (string)$value;
+                }
+            }
+
+            if ($hubSpotValue !== null && $element instanceof FileUpload) {
+                $file = $formRuntime[$identifier];
+                if ($file) {
+                    if ($file instanceof FileReference) {
+                        $file = $file->getOriginalResource();
+                    }
+                    $folder = $file->getParentFolder();
+                    $folderName = $folder->getName();
+                    $fileName = $file->getName();
+                }
+            }
+        }
+
+        if ($fileName !== '' && $folderName !== '') {
+            try {
+                $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
+                $fileIdentifier = '1:/user_upload/' . $folderName . '/' . $fileName;
+                $fileObject = $resourceFactory->getFileObjectFromCombinedIdentifier($fileIdentifier);
+                $accessibleUrl = $fileObject->getPublicUrl();
+                $finalResult['file_upload'] = $accessibleUrl;
+            } catch (\Exception $e) {
+                $finalResult['file_upload'] = '';
+            }
+        }
+
+        $changeFormat = [];
+        foreach ($finalResult as $key => $value) {
+            if ($value !== '') {
+                $changeFormat[] = [
+                    'name' => $key,
+                    'value' => $value,
+                ];
+            }
+        }
+
+        if ($changeFormat === []) {
+            return;
+        }
+
+        $isPrivateAppToken = str_starts_with($clientAPIKey, 'pat-');
+        $submitPath = $isPrivateAppToken
+            ? '/submissions/v3/integration/secure/submit/'
+            : '/submissions/v3/integration/submit/';
+        $apiURL = $apiBaseUrl . $submitPath . $hubspotPortalId . '/' . $hubspotFormId;
+
+        $requestOptions = [
+            'json' => ['fields' => $changeFormat],
+        ];
+        if ($isPrivateAppToken) {
+            $requestOptions['headers'] = [
+                'Authorization' => 'Bearer ' . $clientAPIKey,
+            ];
+        } else {
+            $requestOptions['query'] = ['hapikey' => $clientAPIKey];
+        }
+
+        $client = new Client([
+            'base_uri' => $apiBaseUrl,
+            'timeout' => 10.0,
+        ]);
+        $client->request('POST', $apiURL, $requestOptions);
+    }
+
+    private function isHubSpotEnabled(mixed $value): bool
+    {
+        if (is_bool($value)) {
+            return $value;
+        }
+        if (is_int($value)) {
+            return $value === 1;
+        }
+        if (is_string($value)) {
+            return in_array(strtolower($value), ['true', '1', 'yes', 'on'], true);
+        }
+
+        return false;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function resolveHubSpotConfiguration(): array
+    {
+        $config = [
+            'apiURL' => 'https://api.hsforms.com',
+            'client_apikey' => '',
+            'client_id' => '',
+        ];
+
+        $site = $GLOBALS['TYPO3_REQUEST']?->getAttribute('site');
+        if ($site) {
+            $siteHubspot = $site->getSettings()->get('nshubspot', []);
+            if (is_array($siteHubspot)) {
+                foreach ($siteHubspot as $key => $value) {
+                    if (is_string($value) && $value !== '') {
+                        $config[$key] = $value;
+                    }
+                }
+            }
+        }
+
+        $fullSetup = $GLOBALS['TYPO3_REQUEST']?->getAttribute('frontend.typoscript')?->getSetupArray();
+        $tsHubspot = $fullSetup['plugin.']['tx_nshubspot.']['settings.'] ?? [];
+        if (is_array($tsHubspot)) {
+            foreach ($tsHubspot as $key => $value) {
+                if (is_string($value) && $value !== '') {
+                    $config[$key] = $value;
+                }
+            }
+        }
+
+        return $config;
     }
 }
