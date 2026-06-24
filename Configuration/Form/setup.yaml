@@ -9,13 +9,13 @@ TYPO3:
       prototypes:
         standard:
           finishersDefinition:
-            formEditor:
-              iconIdentifier: form-finisher
-              label: HubSpot Finisher
-              predefinedDefaults:
-                options: []
             HubSpotFinisher:
               implementationClassName: 'Nitsan\NsHubSpot\Finishers\ApiFinisher'
+              formEditor:
+                iconIdentifier: form-finisher
+                label: HubSpot Finisher
+                predefinedDefaults:
+                  options: []
           formElementsDefinition:
             Form:
               formEditor:
@@ -40,10 +40,11 @@ TYPO3:
                       1560425499:
                         value: 'HubSpotFinisher'
                         label: 'HubSpot Finisher'
+                
                 propertyCollections:
                   finishers:
                     1560425499:
-                      identifier: 'HubSpotFinisher'
+                      identifier: HubSpotFinisher
                       editors:
                         100:
                           identifier: header
@@ -51,76 +52,80 @@ TYPO3:
                           label: HubSpot Finisher
                         9999:
                           identifier: removeButton
-                          templateName: Inspector-RemoveElementEditor        
-              renderingOptions:
-                translation:
-                  translationFile:
-                    110: 'EXT:ns_hubspot/Resources/Private/Language/locallang.xlf'
+                          templateName: Inspector-RemoveElementEditor
             Text:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Textarea:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Email:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
                 
             Number:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Telephone:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Hidden:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Url:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
             Checkbox:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 containerClassAttribute: 'custom-control custom-checkbox'
                 elementClassAttribute: 'custom-control-input'
@@ -130,63 +135,69 @@ TYPO3:
             MultiCheckbox:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 containerClassAttribute: 'custom-checkbox-multiple'
                 elementClassAttribute: 'custom-control-input'
             MultiSelect:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 elementClassAttribute: 'custom-select form-control'
             RadioButton:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 containerClassAttribute: 'custom-radio-multiple'
                 elementClassAttribute: 'custom-control-input'
             SingleSelect:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 elementClassAttribute: 'custom-select'
             FileUpload:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 elementClassAttribute: 'custom-file-input'
             ImageUpload:
               formEditor:
                 editors:
-                  600:
+                  6100:
                     identifier: hubSpotValue
                     templateName: Inspector-TextEditor
                     label: HubSpot Value
-                    propertyPath: renderingOptions.hubSpotValue
+                    propertyPath: properties.hubSpotValue
+                    doNotSetIfPropertyValueIsEmpty: true
               properties:
                 elementClassAttribute: 'custom-file-input'
                 imageLinkMaxWidth: 1200

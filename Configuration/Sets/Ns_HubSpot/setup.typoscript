@@ -1,0 +1,2 @@
+@import 'EXT:ns_hubspot/Configuration/TypoScript/Extensions/Form/setup.typoscript'
+@import 'EXT:ns_hubspot/Configuration/TypoScript/setup.typoscript'
