@@ -1,0 +1,10 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="ns-hubspot-premium-strip d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <core:icon identifier="actions-star" size="small" />
+        <strong><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.headline" /></strong>
+        <span><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.description" /></span>
+    </div>
+    <a href="{f:be.uri(route: 'nitsan_nslicensemodule', parameters: {trial: 'ns_hubspot'})}#free-section" class="btn btn-primary"><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.trial" /></a>
+</div>
+</html>
