@@ -11,3 +11,10 @@
   on request, so all form editor users see it (same as ns_feedback).
 - Created agent context (`AGENTS.md`, `CLAUDE.md`, `context/`, `tasks/`); no previous context existed.
 - Open: ns_license 14.5.4 not yet published; TYPO3 13 not tested.
+
+## 2026-10-14
+
+- Premium strip now shows only while "Enable HubSpot" is on for the form (live toggle in the inspector, no save
+  needed). Verified on v14.3 with `hubspotTest` (on → strip) and `mailSenderDemo` (off → none, toggle on/off/on
+  → 1/0/1 strips).
+- Premium strip colours changed from grey to light blue (same palette as ns_revolution_slider). Icon changed from star to rocket (`actions-rocket`). Design aligned with the ns_backup `feature/ns-license-premium-strip-highlight` strip (4px left accent, 10px padding). Headline now "You are using the free version" with an "Upgrade to Premium for ..." description.

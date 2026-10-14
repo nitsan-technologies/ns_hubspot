@@ -23,8 +23,9 @@ TypoScript constant `plugin.tx_nshubspot.settings.apiURL` at a local fake endpoi
 
 1. Forms → open a form → "Edit form properties": Enable HubSpot, Portal ID, Form Id present; "Add finisher"
    lists "HubSpot Finisher"; a Text field shows "HubSpot Value".
-2. Gray premium strip above the stage toolbar, once, for every user. As system maintainer, "Start Free Trial"
-   opens the ns_license module and its trial wizard for `ns_hubspot`.
+2. Blue premium strip above the stage toolbar, once, for every user, only while "Enable HubSpot" is on.
+   Toggle the checkbox off/on: the strip disappears/reappears without saving. As system maintainer,
+   "Start Free Trial" opens the ns_license module and its trial wizard for `ns_hubspot`.
 3. Frontend: submit the form → confirmation shown; fake endpoint receives the secure v3 URL, Bearer header and
    the mapped fields.
 4. Disable HubSpot on the form → nothing sent, confirmation still shown.
