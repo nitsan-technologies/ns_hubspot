@@ -1,10 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
-<div class="ns-hubspot-premium-strip d-flex flex-wrap align-items-center justify-content-between gap-2">
-    <div class="d-flex flex-wrap align-items-center gap-2">
-        <core:icon identifier="actions-rocket" size="small" />
-        <strong><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.headline" /></strong>
-        <span><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.description" /></span>
+<div class="ns-hubspot-premium-strip d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-3">
+        <span class="ns-hubspot-premium-strip-icon"><core:icon identifier="actions-rocket" size="small" /></span>
+        <div>
+            <div class="ns-hubspot-premium-strip-headline"><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.headline" /></div>
+            <div class="ns-hubspot-premium-strip-description"><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.description" /></div>
+        </div>
     </div>
-    <a href="{f:be.uri(route: 'nitsan_nslicensemodule', parameters: {trial: 'ns_hubspot'})}#free-section" class="btn btn-primary"><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.trial" /></a>
+    <a href="{f:be.uri(route: 'nitsan_nslicensemodule', parameters: {trial: 'ns_hubspot'})}#free-section" class="btn btn-primary"><f:translate key="LLL:EXT:ns_hubspot/Resources/Private/Language/locallang.xlf:premium.strip.trial" /> <span aria-hidden="true">&rarr;</span></a>
 </div>
 </html>

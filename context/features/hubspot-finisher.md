@@ -28,8 +28,9 @@ Example: `fileadmin/form_definitions/hubspotTest.form.yaml` in this workspace (f
 4. Builds the field list from all elements recursively, skipping `Page`, `GridRow`, `Fieldset`, `Checkbox`,
    `StaticText`, `Recaptcha`, `Honeypot`. An element is sent if it has a non-empty `hubSpotValue`
    (rendering option or property) and a non-empty submitted value. Multi-value answers are joined with `", "`.
-5. File upload: for a `FileUpload` with `hubSpotValue`, the public URL of
-   `1:/user_upload/<upload folder>/<file name>` is sent as field `file_upload` (last upload wins).
+5. File upload: for a `FileUpload` or `ImageUpload` (both use the core `FileUpload` class) with `hubSpotValue`,
+   the public URL of `1:/user_upload/<upload folder>/<file name>` is sent as field `file_upload` (last upload
+   wins).
 6. Returns silently if no field is left.
 7. POSTs JSON `{"fields":[{"name":…,"value":…}]}` with Guzzle (timeout 10 s):
    - token `pat-…` → `{apiURL}/submissions/v3/integration/secure/submit/{portalId}/{formId}` with

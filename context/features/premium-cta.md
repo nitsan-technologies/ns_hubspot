@@ -24,14 +24,18 @@ live chat, email automation, analytics dashboard. The free version only has the 
 - **Who:** every backend user who can open the form editor, same as ns_feedback and ns_backup (no
   system-maintainer check, removed on request). The ns_license module itself is system-maintainer only, so other
   users who click "Start Free Trial" get TYPO3's access-denied message.
-- Content: `actions-rocket` core icon, headline + one-line description, `btn btn-primary` "Start Free Trial"
-  (same tab).
-- Labels in `locallang.xlf`: `premium.strip.headline` "You are using the free version", `premium.strip.description`
-  "Upgrade to Premium for HubSpot CRM sync, live chat and email automation.",
-  `premium.strip.trial` "Start Free Trial".
-- Look: light-blue bar like the ns_backup / ns_feedback / ns_revolution_slider strip (`light-dark()` colours
-  `#e7f2fc` / border `#8eb6e8` with a 4px `#2b6cb0` left accent / text `#0d2c4a`, `10px 16px` padding,
-  button `#007bff` / hover `#0062cc`), in `Resources/Public/Css/form-editor.css`.
+- Content: `actions-rocket` core icon, headline and description on two lines, `btn btn-primary`
+  "Start Free Trial →" (the arrow is `aria-hidden` markup, not part of the label; same tab).
+- Wording and design are the team-wide standard from the 2026-10-14 review, identical in every NITSAN strip
+  except for the extension name.
+- Labels in `locallang.xlf`:
+  - `premium.strip.headline`: "You're using the free version of NS HubSpot"
+  - `premium.strip.description`: "Unlock premium features and get more out of NS HubSpot."
+  - `premium.strip.trial`: "Start Free Trial"
+- Look: `.ns-hubspot-premium-strip` (+ `-icon`, `-headline`, `-description`) in
+  `Resources/Public/Css/form-editor.css` — light-blue card (`#e7f2fc`, border `#8eb6e8`, 4px `#2b6cb0` left
+  accent, 6px radius, padding 14px 18px, text `#0d2c4a`), semibold 1.1em headline, `light-dark()` for dark mode,
+  button `#007bff` (hover `#0062cc`, no wrap).
 
 ## How it is wired (no core template override)
 

@@ -8,7 +8,7 @@
 | Composer name | `nitsan/ns-hubspot` |
 | Title (ext_emconf) / product name | TYPO3 HubSpot Integration / HubSpot |
 | Namespace | `Nitsan\NsHubSpot\` → `Classes/` (note the capital S in `HubSpot`) |
-| Version (ext_emconf) | 2.0.0 |
+| Version (ext_emconf) | 2.1.0 (latest tag 2.0.0) |
 | Repository | https://github.com/nitsan-technologies/ns_hubspot (default branch `main`) |
 | Licensing status (NITSAN Free/Freemium sheet) | **Freemium** — this repo is the free version |
 | Premium version | Sheet: https://t3planet.de/typo3-hubspot-erweiterung · T3Planet catalog: €129, https://t3planet.de/en/typo3-hubspot-extension |
@@ -65,7 +65,8 @@ Code-read:
 - `Checkbox` elements are skipped by the finisher although the form editor offers "HubSpot Value" for them.
 - File uploads: only the last mapped upload is sent, always as HubSpot field `file_upload` (not its
   "HubSpot Value"), and only if the file sits in storage 1 under `/user_upload/<folder>/`. The upload's own
-  form value (an Extbase `FileReference` object) is also cast to string, which would throw — unverified.
+  form value (an Extbase `FileReference` object) is also cast to string; `AbstractDomainObject::__toString()`
+  makes that `TYPO3\CMS\Extbase\Domain\Model\FileReference:<uid>`, which is sent under its "HubSpot Value".
 - API keys that don't start with `pat-` are sent as `hapikey` query parameter. HubSpot retired API keys,
   so in practice only private-app tokens work.
 - `client_apikey` is required even though HubSpot's non-secure submit endpoint needs no authentication.
