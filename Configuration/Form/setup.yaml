@@ -8,6 +8,17 @@ TYPO3:
         allowDeleteFromExtensionPaths: true
       prototypes:
         standard:
+          formEditor:
+            dynamicJavaScriptModules:
+              additionalViewModelModules:
+                1732785702: '@nitsan/ns-hubspot/form-editor-premium-strip.js'
+            stylesheets:
+              1732785702: 'EXT:ns_hubspot/Resources/Public/Css/form-editor.css'
+            formEditorFluidConfiguration:
+              partialRootPaths:
+                1732785702: 'EXT:ns_hubspot/Resources/Private/Backend/Partials/FormEditor/'
+            formEditorPartials:
+              NsHubSpot-PremiumStrip: NsHubSpot/PremiumStrip
           finishersDefinition:
             HubSpotFinisher:
               implementationClassName: 'Nitsan\NsHubSpot\Finishers\ApiFinisher'

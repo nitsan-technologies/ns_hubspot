@@ -11,12 +11,13 @@ $EM_CONF['ns_hubspot'] = [
     'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
-    'version' => '2.0.0',
+    'version' => '2.0.1',
     'constraints' => [
         'depends' => [
             'typo3' => '13.0.0-14.9.99',
             'fluid' => '',
             'extbase' => '',
+            'ns_license' => '14.5.4-14.9.99',
         ],
         'conflicts' => [],
         'suggests' => [],
