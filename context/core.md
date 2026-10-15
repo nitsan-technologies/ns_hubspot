@@ -38,6 +38,8 @@
 
 - No PHPUnit, PHPStan, CS fixer or package.json in the repo.
 - CI: `.github/workflows/ter-release.yml` only (publishes tags to TER, PHP 7.4 runner, deprecated `set-output`).
+- `.gitattributes` export-ignores `.github/`, `AGENTS.md`, `CLAUDE.md`, `context/`, `tasks/` and itself, so they
+  are not in the GitHub/Composer archive or the TER package (the TER release uploads the GitHub tag archive).
 - No Crowdin config. Labels: `Resources/Private/Language/locallang.xlf` only.
 
 ## Conventions
